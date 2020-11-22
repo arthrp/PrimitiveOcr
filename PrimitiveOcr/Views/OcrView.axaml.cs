@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using PrimitiveOcr.ViewModels;
+using System.Diagnostics;
 
 namespace PrimitiveOcr.Views
 {
@@ -20,10 +21,17 @@ namespace PrimitiveOcr.Views
         {
             var dialog = new OpenFileDialog()
             {
-                AllowMultiple = false
+                AllowMultiple = false,
+                Title = "Choose image"
             };
 
             var path = await dialog.ShowAsync((Window)this.VisualRoot);
+
+            if(path.Length < 1)
+            {
+                Debug.WriteLine("Nothing is chosen");
+                return;
+            }
 
             SpecificViewModel.LoadAndSetText(path[0]);
         }
