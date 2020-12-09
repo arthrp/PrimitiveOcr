@@ -6,6 +6,7 @@
              x:Class="PrimitiveOcr.Views.OcrView">
 
 	<DockPanel>
+		<Button DockPanel.Dock="Bottom" Name="SettingsBtn" Command="{Binding $parent[Window].DataContext.OpenSettingsPage}">Settings</Button>
 		<Button DockPanel.Dock="Bottom" Name="OpenImageBtn">Open image</Button>
 
 		<TextBox Text="{Binding ImageText}" IsReadOnly="true" />

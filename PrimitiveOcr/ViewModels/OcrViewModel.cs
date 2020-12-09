@@ -34,10 +34,5 @@ namespace PrimitiveOcr.ViewModels
             var text = _ocrProvider.GetText(imagePath);
             ImageText = text;
         }
-
-        public void SetText(string text)
-        {
-            Debug.WriteLine(text);
-        }
     }
 }
