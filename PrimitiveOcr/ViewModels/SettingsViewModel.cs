@@ -20,13 +20,27 @@ namespace PrimitiveOcr.ViewModels
         }
 
 
-        public SettingsViewModel()
+        public SettingsViewModel(SettingsItem settingsItem)
         {
+            BindFields(settingsItem);
             var isOkEnabled = this.WhenAnyValue(x => x.TessCustomFilePath,
                 x => !string.IsNullOrWhiteSpace(x));
 
             Cancel = ReactiveCommand.Create(() => { });
-            Ok = ReactiveCommand.Create(() => new SettingsItem { TessDataFolder = _tessCustomFilePath }, canExecute: isOkEnabled);
+            Ok = ReactiveCommand.Create(() => AssembleModel(), canExecute: isOkEnabled);
+        }
+
+        private SettingsItem AssembleModel()
+        {
+            return new SettingsItem()
+            {
+                TessDataFolder = _tessCustomFilePath
+            };
+        }
+
+        private void BindFields(SettingsItem settingsItem)
+        {
+            _tessCustomFilePath = settingsItem.TessDataFolder;
         }
     }
 }

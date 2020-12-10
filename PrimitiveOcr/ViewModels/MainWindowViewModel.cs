@@ -10,6 +10,7 @@ namespace PrimitiveOcr.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         private ViewModelBase _content;
+        private SettingsItem _settings;
         public ViewModelBase Content
         {
             get => _content;
@@ -19,18 +20,20 @@ namespace PrimitiveOcr.ViewModels
 
         public MainWindowViewModel()
         {
+            _settings = new SettingsItem() { TessDataFolder = @"./Tessdata" };
             Content = new OcrViewModel();
         }
 
         public void OpenSettingsPage()
         {
-            var vm = new SettingsViewModel();
+            var vm = new SettingsViewModel(_settings);
             Content = vm;
 
             Observable.Merge<SettingsItem>(vm.Ok, vm.Cancel.Select(_ => (SettingsItem)null))
                 .Take(1)
                 .Subscribe(model =>
                 {
+                    _settings = (model != null) ? model : _settings;
                     Content = new OcrViewModel();
                 });
         }
