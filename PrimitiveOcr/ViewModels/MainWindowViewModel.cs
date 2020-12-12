@@ -21,7 +21,7 @@ namespace PrimitiveOcr.ViewModels
         public MainWindowViewModel()
         {
             _settings = new SettingsItem() { TessDataFolder = @"./Tessdata" };
-            Content = new OcrViewModel();
+            Content = new OcrViewModel(_settings);
         }
 
         public void OpenSettingsPage()
@@ -34,7 +34,7 @@ namespace PrimitiveOcr.ViewModels
                 .Subscribe(model =>
                 {
                     _settings = (model != null) ? model : _settings;
-                    Content = new OcrViewModel();
+                    Content = new OcrViewModel(_settings);
                 });
         }
     }

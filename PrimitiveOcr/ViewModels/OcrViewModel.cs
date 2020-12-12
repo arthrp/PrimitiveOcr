@@ -9,6 +9,7 @@ using Avalonia.Dialogs;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
 using System.Diagnostics;
+using PrimitiveOcr.Models;
 
 namespace PrimitiveOcr.ViewModels
 {
@@ -24,9 +25,9 @@ namespace PrimitiveOcr.ViewModels
             set => this.RaiseAndSetIfChanged(ref _imageText, value);
         }
 
-        public OcrViewModel(OcrProvider provider = null)
+        public OcrViewModel(SettingsItem settings, OcrProvider provider = null)
         {
-            _ocrProvider = provider ?? new OcrProvider(@"./Tessdata");
+            _ocrProvider = provider ?? new OcrProvider(settings.TessDataFolder);
         }
 
         public void LoadAndSetText(string imagePath)
